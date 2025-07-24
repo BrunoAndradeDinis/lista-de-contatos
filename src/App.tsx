@@ -1,11 +1,23 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import EstiloGlobal, { Container } from "./styles";
+
+const rotas = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+]);
 
 function App() {
-
   return (
     <>
-      <h1>Foi</h1>
+      <EstiloGlobal />
+      <Container>
+        <RouterProvider router={rotas} />
+      </Container>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
