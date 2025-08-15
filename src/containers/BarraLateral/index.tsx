@@ -15,6 +15,7 @@ const BarraLateral = () => {
         <FiltroSelecionavel ativo={true} contador={23} titulo="Todos os contatos" icon="icons/contatos.png"/>
         <FiltroSelecionavel ativo={false} contador={12} titulo="Familia" icon="icons/familia.png"/>
         <FiltroSelecionavel ativo={false} contador={10} titulo="Trabalho" icon="icons/escritorio.png"/>
+        <FiltroSelecionavel ativo={false} contador={1} titulo="Amigos" icon="icons/amigos.png"/>
         <FiltroSelecionavel ativo={false} contador={1} titulo="Favoritos" icon="icons/estrela-fill.png"/>
       </S.Aside>
     </>

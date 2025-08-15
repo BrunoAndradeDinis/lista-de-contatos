@@ -1,15 +1,53 @@
+import { useSelector } from "react-redux";
 import Contato from "../../components/Contato";
+import ContatoType from "../../models/Contato";
 import { Content } from "../../styles";
 import * as S from "./styles";
+import type { RootReducer } from "../../store";
 
 const ListaDeContatos = () => {
+  const { itens } = useSelector((state: RootReducer) => state.contatos);
+  const { categoria, criterio } = useSelector(
+    (state: RootReducer) => state.filtro
+  );
+
+  const filtraContatos = (): ContatoType[] => {
+    let contatosFiltrados = itens;
+
+    if (categoria) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      contatosFiltrados = contatosFiltrados.filter(
+        (c) =>
+          c.nome.toLocaleLowerCase().search(categoria.toLocaleLowerCase()) >= 0
+      );
+    }
+    if (criterio === "amigos") {
+      contatosFiltrados = contatosFiltrados.filter(
+        (c) => c.categoria === criterio
+      );
+    }
+
+    if (criterio === "trabalho") {
+      contatosFiltrados = contatosFiltrados.filter(
+        (c) => c.categoria === criterio
+      );
+    }
+    if (criterio === "familia") {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      contatosFiltrados = contatosFiltrados.filter(
+        (c) => c.categoria === criterio
+      );
+    }
+    return contatosFiltrados;
+  };
+
   return (
     <S.MainContainer>
       <S.ContainerPesquisa>
         <S.Procurar placeholder="Procurar" />
       </S.ContainerPesquisa>
       <S.TituloContainer>
-        <h2>Contatos (23)</h2>
+        <h2>Contatos {itens.length}</h2>
       </S.TituloContainer>
 
       <Content>
@@ -18,96 +56,15 @@ const ListaDeContatos = () => {
         <h4>Telefone</h4>
       </Content>
       <S.Container>
-        <Contato
-          email="endereco.de@email.com"
-          nome="Brinu"
-          telefone={123121312}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Honey"
-          telefone={121932193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Joe"
-          telefone={1291232193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Zé"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Malone"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Doido"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Brinu"
-          telefone={123121312}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Honey"
-          telefone={121932193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Joe"
-          telefone={1291232193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Zé"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Malone"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Doido"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Brinu"
-          telefone={123121312}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Honey"
-          telefone={121932193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Joe"
-          telefone={1291232193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Zé"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Malone"
-          telefone={12912312332193}
-        />
-        <Contato
-          email="endereco.de@email.com"
-          nome="Doido"
-          telefone={12912312332193}
-        />
+        {filtraContatos().map((contato) => (
+          <Contato
+            key={contato.id}
+            categoria={contato.categoria}
+            email={contato.email}
+            nome={contato.nome}
+            telefone={contato.telefone}
+          />
+        ))}
       </S.Container>
     </S.MainContainer>
   );

@@ -15,7 +15,6 @@ export const ContentContato = styled(Content)`
     top: -2rem;
     z-index: -1;
     left: -1rem;
-    width: 100%;
   }
   &:hover::after {
     background-color: rgba(0, 0, 0, 0.1);
@@ -23,6 +22,10 @@ export const ContentContato = styled(Content)`
 
   &:hover button {
     display: inline-block;
+  }
+
+  &:hover div div::after {
+    background-color: rgba(255, 255, 255, 0.6);
   }
 `;
 
@@ -37,6 +40,10 @@ export const Input = styled.input`
   background-color: transparent;
   border: none;
   padding: 0.25rem 0.5rem;
+
+  &:focus{
+    color: #000;
+  }
 `;
 
 export const OpcoesFuncionalidade = styled.div`
@@ -54,4 +61,31 @@ export const BotaoFuncionalidade = styled(Botao)`
   height: 36px;
   width: 40px;
   text-align: center;
+`;
+
+export const ContentNome = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    margin-bottom: 1rem;
+
+    img {
+      height: 20px;
+      position: relative;
+    }
+  }
+
+  div::after {
+    content: "";
+    border-radius: 50%;
+    background-color: rgba(108, 247, 217, 0.23);
+    position: absolute;
+    padding: 0.9rem;
+    top: 0;
+    left: -0.3rem;
+    z-index: 1;
+  }
 `;

@@ -1,17 +1,31 @@
 import * as S from "./styles";
 
-type Contato = {
+export type TypeContato = {
   nome: string;
   email: string;
   telefone: number;
+  categoria: string;
 };
 
-const Contato = ({ email, nome, telefone }: Contato) => {
+const validaCategoria = (categoria: string) => {
+  if (categoria === "amigos") {
+    return "icons/amigos.png";
+  } else if (categoria === "familia") {
+    return "icons/familia.png";
+  } else {
+    return "icons/escritorio.png";
+  }
+};
+
+const Contato = ({ email, nome, telefone, categoria }: TypeContato) => {
   return (
     <S.ContentContato>
-      <div>
+      <S.ContentNome>
+        <div>
+          <img src={validaCategoria(categoria)} alt={categoria} />
+        </div>
         <S.Input type="text" value={nome} />
-      </div>
+      </S.ContentNome>
       <div>
         <S.Input type="text" value={email} />
       </div>
