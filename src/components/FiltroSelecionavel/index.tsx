@@ -1,26 +1,19 @@
-// import { useDispatch, useSelector } from "react-redux";
 import * as S from "./styles";
-// import type { RootReducer } from "../../store";
-// import { alteraFiltro } from "../../store/reducers/filtro";
+
 
 type Props = {
   ativo: boolean;
   titulo: string;
   contador: number;
   icon: string;
+  onClick: () => void;
 };
 
-const FiltroSelecionavel = ({ ativo, titulo, contador, icon }: Props) => {
-  // const dispatch = useDispatch();
-  // const { filtro } = useSelector((state: RootReducer) => state);
-
-  // const filtrar = (criterio, categoria) => {
-  //   dispatch(alteraFiltro(criterio, categoria));
-  // };
+const FiltroSelecionavel = ({ ativo, titulo, contador, icon, onClick }: Props) => {
 
   return (
     <>
-      <S.Filtro ativo={ativo}>
+      <S.Filtro ativo={ativo} onClick={onClick}>
         <S.Icon>
           <img src={icon} alt={titulo} />
         </S.Icon>

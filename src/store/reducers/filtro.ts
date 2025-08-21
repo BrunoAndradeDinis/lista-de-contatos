@@ -17,9 +17,8 @@ const filtroSlice = createSlice({
     alteraCategoria: (state, action: PayloadAction<string>) => {
       state.categoria = action.payload;
     },
-    alteraFiltro: (state, action: PayloadAction<FiltroState>) => {
-      state.criterio = action.payload.criterio;
-      state.categoria = action.payload.categoria;
+    alteraFiltro: (state, action: PayloadAction<"amigos" | "todos" | "familia" | "trabalho" | "favoritos">) => {
+      state.criterio = action.payload;
     },
   },
 });

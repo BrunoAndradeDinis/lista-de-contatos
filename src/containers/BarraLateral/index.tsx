@@ -1,7 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
 import FiltroSelecionavel from "../../components/FiltroSelecionavel";
 import * as S from "./styles";
+import { alteraFiltro } from "../../store/reducers/filtro";
+import type { RootReducer } from "../../store";
 
 const BarraLateral = () => {
+  const dispatch = useDispatch();
+  const { criterio } = useSelector((state: RootReducer) => state.filtro);
+  const { itens } = useSelector((state: RootReducer) => state.contatos);
+
+  const contarContatos = (categoria: string) => {
+    if (categoria === "todos") return itens.length;
+    if (categoria === "favoritos") return itens.filter(c => c.favorito).length;
+    return itens.filter(c => c.categoria === categoria).length;
+  };
+
+  const handleFiltro = (novoCriterio: "amigos" | "todos" | "familia" | "trabalho" | "favoritos") => {
+    dispatch(alteraFiltro(novoCriterio));
+  };
+
   return (
     <>
       <S.Aside>
@@ -12,11 +29,41 @@ const BarraLateral = () => {
           <h1> Lista</h1>
         </S.TituloPrincipal>
 
-        <FiltroSelecionavel ativo={true} contador={23} titulo="Todos os contatos" icon="icons/contatos.png"/>
-        <FiltroSelecionavel ativo={false} contador={12} titulo="Familia" icon="icons/familia.png"/>
-        <FiltroSelecionavel ativo={false} contador={10} titulo="Trabalho" icon="icons/escritorio.png"/>
-        <FiltroSelecionavel ativo={false} contador={1} titulo="Amigos" icon="icons/amigos.png"/>
-        <FiltroSelecionavel ativo={false} contador={1} titulo="Favoritos" icon="icons/estrela-fill.png"/>
+        <FiltroSelecionavel 
+          ativo={criterio === "todos"} 
+          contador={contarContatos("todos")} 
+          titulo="Todos os contatos" 
+          icon="icons/contatos.png"
+          onClick={() => handleFiltro("todos")}
+        />
+        <FiltroSelecionavel 
+          ativo={criterio === "familia"} 
+          contador={contarContatos("familia")} 
+          titulo="Familia" 
+          icon="icons/familia.png"
+          onClick={() => handleFiltro("familia")}
+        />
+        <FiltroSelecionavel 
+          ativo={criterio === "trabalho"} 
+          contador={contarContatos("trabalho")} 
+          titulo="Trabalho" 
+          icon="icons/escritorio.png"
+          onClick={() => handleFiltro("trabalho")}
+        />
+        <FiltroSelecionavel 
+          ativo={criterio === "amigos"} 
+          contador={contarContatos("amigos")} 
+          titulo="Amigos" 
+          icon="icons/amigos.png"
+          onClick={() => handleFiltro("amigos")}
+        />
+        <FiltroSelecionavel 
+          ativo={criterio === "favoritos"} 
+          contador={contarContatos("favoritos")} 
+          titulo="Favoritos" 
+          icon="icons/estrela-fill.png"
+          onClick={() => handleFiltro("favoritos")}
+        />
       </S.Aside>
     </>
   );

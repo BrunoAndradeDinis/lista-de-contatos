@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import Contato from "../../components/Contato";
 import ContatoType from "../../models/Contato";
 import { Content } from "../../styles";
@@ -10,44 +11,46 @@ const ListaDeContatos = () => {
   const { categoria, criterio } = useSelector(
     (state: RootReducer) => state.filtro
   );
+  const [termoBusca, setTermoBusca] = useState('')
 
   const filtraContatos = (): ContatoType[] => {
     let contatosFiltrados = itens;
 
-    if (categoria) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      contatosFiltrados = contatosFiltrados.filter(
-        (c) =>
-          c.nome.toLocaleLowerCase().search(categoria.toLocaleLowerCase()) >= 0
-      );
+    // Aplicar filtro por categoria
+    if (criterio && criterio !== "todos") {
+      if (criterio === "favoritos") {
+        contatosFiltrados = contatosFiltrados.filter(c => c.favorito);
+      } else {
+        contatosFiltrados = contatosFiltrados.filter(c => c.categoria === criterio);
+      }
     }
-    if (criterio === "amigos") {
-      contatosFiltrados = contatosFiltrados.filter(
-        (c) => c.categoria === criterio
+
+    // Aplicar busca por nome, telefone ou email
+    if (termoBusca.trim()) {
+      const termo = termoBusca.toLowerCase();
+      contatosFiltrados = contatosFiltrados.filter(c => 
+        c.nome.toLowerCase().includes(termo) ||
+        c.email.toLowerCase().includes(termo) ||
+        c.telefone.toString().includes(termo)
       );
     }
 
-    if (criterio === "trabalho") {
-      contatosFiltrados = contatosFiltrados.filter(
-        (c) => c.categoria === criterio
-      );
-    }
-    if (criterio === "familia") {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      contatosFiltrados = contatosFiltrados.filter(
-        (c) => c.categoria === criterio
-      );
-    }
     return contatosFiltrados;
   };
+
+  const contatosFiltrados = filtraContatos();
 
   return (
     <S.MainContainer>
       <S.ContainerPesquisa>
-        <S.Procurar placeholder="Procurar" />
+        <S.Procurar 
+          placeholder="Buscar por nome, email ou telefone..." 
+          value={termoBusca}
+          onChange={({target}) => setTermoBusca(target.value)}
+        />
       </S.ContainerPesquisa>
       <S.TituloContainer>
-        <h2>Contatos {itens.length}</h2>
+        <h2>Contatos {contatosFiltrados.length}</h2>
       </S.TituloContainer>
 
       <Content>
@@ -56,13 +59,15 @@ const ListaDeContatos = () => {
         <h4>Telefone</h4>
       </Content>
       <S.Container>
-        {filtraContatos().map((contato) => (
+        {contatosFiltrados.map((contato) => (
           <Contato
             key={contato.id}
             categoria={contato.categoria}
             email={contato.email}
             nome={contato.nome}
             telefone={contato.telefone}
+            id={contato.id}
+            favorito={contato.favorito}
           />
         ))}
       </S.Container>
