@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import variaveis from "./variaveis";
 
 const EstiloGlobal = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
@@ -12,7 +13,7 @@ const EstiloGlobal = createGlobalStyle`
   text-decoration: none;
   scrollbar-width: none;
 
-  color: #252525;
+  color: ${variaveis.textoPrimario};
 
   body::-webkit-scrollbar{
     width: none;
@@ -35,7 +36,7 @@ export const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   z-index: 1;
-  background-color: #fff;
+  background-color: ${variaveis.fundoPrincipal};
   h4 {
     margin-left: 1rem;
   }
@@ -58,7 +59,29 @@ export const Botao = styled.button`
 
   &:hover {
     opacity: 0.6;
-    border: 1px solid #ccc;
+    border: 1px solid ${variaveis.bordaHover};
+  }
+`;
+
+export const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  gap: 0.5rem;
+`;
+
+export const InputChore = styled.input`
+  color: ${variaveis.inputTexto};
+  font-size: 14px;
+  line-height: 24px;
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  padding: 0.25rem 0.5rem;
+
+  &:focus{
+    color: ${variaveis.inputTextoFoco};
   }
 `;
 

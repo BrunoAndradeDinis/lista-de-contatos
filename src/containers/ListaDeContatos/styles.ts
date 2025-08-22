@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import { Input } from "../../components/Contato/styles";
+import { InputChore, Main} from "../../styles";
 
-export const MainContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
-  gap: 0.5rem;
+export const MainContainer = styled(Main)`
+ 
 `;
 
 export const TituloContainer = styled.div`
@@ -31,7 +28,8 @@ export const ContainerPesquisa = styled.div`
 
 `;
 
-export const Procurar = styled(Input)`
+export const Procurar = styled(InputChore)`
+  border: none;
   border-bottom: 1px solid;
   width: 50%;
 `;

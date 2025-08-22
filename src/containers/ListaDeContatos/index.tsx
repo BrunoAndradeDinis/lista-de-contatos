@@ -16,7 +16,6 @@ const ListaDeContatos = () => {
   const filtraContatos = (): ContatoType[] => {
     let contatosFiltrados = itens;
 
-    // Aplicar filtro por categoria
     if (criterio && criterio !== "todos") {
       if (criterio === "favoritos") {
         contatosFiltrados = contatosFiltrados.filter(c => c.favorito);
@@ -25,7 +24,6 @@ const ListaDeContatos = () => {
       }
     }
 
-    // Aplicar busca por nome, telefone ou email
     if (termoBusca.trim()) {
       const termo = termoBusca.toLowerCase();
       contatosFiltrados = contatosFiltrados.filter(c => 

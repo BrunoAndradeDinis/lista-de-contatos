@@ -3,8 +3,13 @@ import FiltroSelecionavel from "../../components/FiltroSelecionavel";
 import * as S from "./styles";
 import { alteraFiltro } from "../../store/reducers/filtro";
 import type { RootReducer } from "../../store";
+import BotaoAdicionar from "../../components/BotaoAdicionar";
 
-const BarraLateral = () => {
+type Props = {
+  mostrarFiltros: boolean
+}
+
+const BarraLateral = ({mostrarFiltros}: Props) => {
   const dispatch = useDispatch();
   const { criterio } = useSelector((state: RootReducer) => state.filtro);
   const { itens } = useSelector((state: RootReducer) => state.contatos);
@@ -28,6 +33,9 @@ const BarraLateral = () => {
           </S.Logo>
           <h1> Lista</h1>
         </S.TituloPrincipal>
+
+       {mostrarFiltros ? (<>
+        <BotaoAdicionar/>
 
         <FiltroSelecionavel 
           ativo={criterio === "todos"} 
@@ -64,6 +72,7 @@ const BarraLateral = () => {
           icon="icons/estrela-fill.png"
           onClick={() => handleFiltro("favoritos")}
         />
+      </>):(<><S.BotaoVoltar to="/">{`↚  voltar para home`}</S.BotaoVoltar></>)}
       </S.Aside>
     </>
   );

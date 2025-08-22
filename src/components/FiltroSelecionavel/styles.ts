@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import variaveis from "../../styles/variaveis";
 
 type Props = {
   ativo: boolean;
 };
 
 export const Filtro = styled.div<Props>`
-  background-color: ${(props) => (props.ativo ? "#c2e7ff" : "inherit")};
+  background-color: ${(props) => (props.ativo ? variaveis.filtroAtivoFundo : "inherit")};
   border-radius: 2rem 0 0 2rem;
   display: flex;
   gap: 0.5rem;
@@ -26,7 +27,7 @@ export const Filtro = styled.div<Props>`
     transition: background-color 0.3s ease;
   }
   &:hover::after {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: ${variaveis.overlayHoverFraco};
   }
 `;
 
@@ -43,7 +44,7 @@ export const Icon = styled.div`
     content: "";
     border-radius: 50%;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.23);
+    background-color: ${variaveis.overlayBrancoFraco};
     position: absolute;
     padding: 0.9rem;
     top: -0.25rem;

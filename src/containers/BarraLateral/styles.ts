@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import variaveis from "../../styles/variaveis";
 import { Link } from "react-router-dom";
+import { BotaoAdd } from "../../components/BotaoAdicionar/styles";
 
 export const Aside = styled.aside`
   padding: 1rem;
@@ -26,3 +27,5 @@ export const Logo = styled.div`
     height: 32px;
   }
 `;
+
+export const BotaoVoltar = styled(BotaoAdd)`` 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Botao, Content } from "../../styles";
+import { Botao, Content, InputChore } from "../../styles";
+import variaveis from "../../styles/variaveis";
 
 export const ContentContato = styled(Content)`
   position: relative;
@@ -17,7 +18,7 @@ export const ContentContato = styled(Content)`
     left: -1rem;
   }
   &:hover::after {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${variaveis.overlayHoverMedio};
   }
 
   &:hover button {
@@ -25,25 +26,13 @@ export const ContentContato = styled(Content)`
   }
 
   &:hover div div::after {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: ${variaveis.overlayBrancoForte};
   }
 `;
 
-export const Input = styled.input`
-  color: #8b8b8b;
-  font-size: 14px;
-  line-height: 24px;
-  font-family: "Roboto-mono", monospace;
-  display: block;
-  width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
+export const Input = styled(InputChore)`
   border: none;
-  padding: 0.25rem 0.5rem;
 
-  &:focus{
-    color: #000;
-  }
 `;
 
 export const OpcoesFuncionalidade = styled.div`
@@ -81,7 +70,7 @@ export const ContentNome = styled.div`
   div::after {
     content: "";
     border-radius: 50%;
-    background-color: rgba(108, 247, 217, 0.23);
+    background-color: ${variaveis.badgeVerdeTransparente};
     position: absolute;
     padding: 0.9rem;
     top: 0;
