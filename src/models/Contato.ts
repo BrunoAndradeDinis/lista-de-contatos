@@ -1,7 +1,9 @@
+import * as enums from '../utils/Contato'
+
 class Contato {
   nome: string;
   email: string;
-  categoria: string;
+  categoria: enums.Categoria;
   telefone: number;
   id: number;
   favorito: boolean;
@@ -9,7 +11,7 @@ class Contato {
   constructor(
     nome: string,
     email: string,
-    categoria: string,
+    categoria: enums.Categoria,
     telefone: number,
     id: number,
     favorito: boolean = false

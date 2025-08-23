@@ -8,10 +8,7 @@ import { useDispatch } from "react-redux";
 
 type Props = ContatoType
 
-
-
 const validaCategoria = (categoria: string) => {
-
   if (categoria === "amigos") {
     return "icons/amigos.png";
   } else if (categoria === "familia") {
@@ -28,13 +25,31 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
   const [nome, alteraNome] = useState('')
   const [estaEditando, setEstaEditando] = useState(false)
   const [favorito, setFavorito] = useState(favoritoOriginal)
+  const [telefoneError, setTelefoneError] = useState('')
 
   useEffect(()=>{
-    emailOriginal.length > 0 ? alteraEmailAd(emailOriginal): ''
-    nomeOriginal.length > 0 ? alteraNome(nomeOriginal): ''
-    telefoneOriginal > 0 ? alteraNumero(telefoneOriginal.toString()): ''
+    if (emailOriginal.length > 0) alteraEmailAd(emailOriginal)
+    if (nomeOriginal.length > 0) alteraNome(nomeOriginal)
+    if (telefoneOriginal > 0) alteraNumero(telefoneOriginal.toString())
     setFavorito(favoritoOriginal)
   }, [emailOriginal, telefoneOriginal, nomeOriginal, favoritoOriginal])
+
+  const validarTelefone = (valor: string) => {
+    const apenasNumeros = valor.replace(/\D/g, '')
+    if (apenasNumeros.length < 11) {
+        setTelefoneError('Telefone deve ter pelo menos 11 dígitos')
+        return false
+    } else {
+        setTelefoneError('')
+        return true
+    }
+  }
+
+  const telefoneChange = (valor: string) => {
+    const apenasNumeros = valor.replace(/\D/g, '')
+    alteraNumero(apenasNumeros)
+    validarTelefone(apenasNumeros)
+  }
 
   const cancelaEdicao = ()=>{
     setEstaEditando(false)
@@ -42,9 +57,14 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
     alteraNome(nomeOriginal)
     alteraNumero(telefoneOriginal.toString())
     setFavorito(favoritoOriginal)
+    telefoneChange(telefoneOriginal.toString())
   }
 
-  const handleSalvar = () => {
+  const salvar = () => {
+
+    if (!validarTelefone(telefone)) {
+      return
+    }
     dispatch(editar({
       id, 
       nome, 
@@ -56,13 +76,13 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
     setEstaEditando(false)
   }
 
-  const handleRemover = () => {
+  const Remover = () => {
     if (window.confirm('Tem certeza que deseja excluir este contato?')) {
       dispatch(remover(id))
     }
   }
 
-  const handleAlternarFavorito = () => {
+  const AlternarFavorito = () => {
     setFavorito(!favorito)
     dispatch(alternarFavorito(id))
   }
@@ -79,11 +99,12 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
         <S.Input type="text" value={email} onChange={({target}) => alteraEmailAd(target.value)} disabled={!estaEditando}/>
       </div>
       <div>
-        <S.Input type="tel" value={telefone} min={9999999999} onChange={({target}) => alteraNumero(target.value)} disabled={!estaEditando}/>
+        <S.Input type="tel" value={telefone} onChange={({target}) => telefoneChange(target.value)} disabled={!estaEditando}/>
+        {telefoneError && <S.Error>{telefoneError}</S.Error>}
       </div>
       <S.OpcoesFuncionalidade>
         {estaEditando ? (<>
-          <S.BotaoFuncionalidade title="Favoritar" onClick={handleAlternarFavorito}>
+          <S.BotaoFuncionalidade title="Favoritar" onClick={AlternarFavorito}>
           <img
             src={favorito ? "icons/estrela-fill.png" : "icons/estrela.png"}
             alt="favoritar"
@@ -91,7 +112,7 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
             height="12px"
           />
         </S.BotaoFuncionalidade>
-        <S.BotaoFuncionalidade onClick={handleSalvar} title="Salvar" >
+        <S.BotaoFuncionalidade onClick={salvar} title="salvar" >
           <img src="icons/save.png" alt="salvar" width="12px" height="12px" />
         </S.BotaoFuncionalidade>
         <S.BotaoFuncionalidade title="Cancelar" onClick={cancelaEdicao}>
@@ -104,7 +125,7 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
         </S.BotaoFuncionalidade>
         </>) : (
           <>
-          <S.BotaoFuncionalidade title="Favoritar" onClick={handleAlternarFavorito}>
+          <S.BotaoFuncionalidade title="Favoritar" onClick={AlternarFavorito}>
           <img
             src={favorito ? "icons/estrela-fill.png" : "icons/estrela.png"}
             alt="favoritar"
@@ -115,7 +136,7 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
         <S.BotaoFuncionalidade onClick={()=> setEstaEditando(!estaEditando)} title="Editar">
           <img src="icons/caneta.png" alt="editar" width="12px" height="12px" />
         </S.BotaoFuncionalidade>
-        <S.BotaoFuncionalidade title="Excluir" onClick={handleRemover}>
+        <S.BotaoFuncionalidade title="Excluir" onClick={Remover}>
           <img
             src="icons/lata-de-lixo.png"
             alt="excluir"

@@ -28,6 +28,10 @@ export const ContentContato = styled(Content)`
   &:hover div div::after {
     background-color: ${variaveis.overlayBrancoForte};
   }
+
+  div{
+    position: relative;
+  }
 `;
 
 export const Input = styled(InputChore)`
@@ -55,8 +59,6 @@ export const BotaoFuncionalidade = styled(Botao)`
 export const ContentNome = styled.div`
   display: flex;
   gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
 
   div {
     margin-bottom: 1rem;
@@ -78,3 +80,11 @@ export const ContentNome = styled.div`
     z-index: 1;
   }
 `;
+
+export const Error = styled.span`
+    color: ${variaveis.corErro};
+    font-size: 10px;
+    font-weight: 500;
+    position: absolute;
+    bottom: 2px;
+`

@@ -5,7 +5,7 @@ type FiltroState = {
   criterio: "amigos" | "todos" | "familia" | "trabalho" | "favoritos";
 };
 
-const initialState = {
+const initialState: FiltroState = {
   categoria: "",
   criterio: "todos",
 };

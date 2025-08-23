@@ -13,7 +13,6 @@ export const Filtro = styled.div<Props>`
   align-items: center;
   padding: 0.5rem 0;
   margin-right: -1rem;
-  cursor: pointer;
   position: relative;
   height: 3rem;
   margin-bottom: 0.25rem;

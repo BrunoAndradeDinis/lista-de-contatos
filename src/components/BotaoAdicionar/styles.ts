@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import variaveis from "../../styles/variaveis";
 import { Link } from "react-router-dom";
+import variaveis from "../../styles/variaveis";
 
 export const BotaoAdd = styled(Link)`
     background-color: ${variaveis.corBotaoContato};
@@ -16,6 +16,7 @@ export const BotaoAdd = styled(Link)`
     font-weight: bold;
     position: relative;
     border: none;
+    text-decoration: none;
 
     &:hover{
         box-shadow: 3px 3px 1px ${variaveis.sombraPadrao}; 

@@ -8,7 +8,7 @@ import type { RootReducer } from "../../store";
 
 const ListaDeContatos = () => {
   const { itens } = useSelector((state: RootReducer) => state.contatos);
-  const { categoria, criterio } = useSelector(
+  const { criterio } = useSelector(
     (state: RootReducer) => state.filtro
   );
   const [termoBusca, setTermoBusca] = useState('')
@@ -57,17 +57,21 @@ const ListaDeContatos = () => {
         <h4>Telefone</h4>
       </Content>
       <S.Container>
-        {contatosFiltrados.map((contato) => (
-          <Contato
-            key={contato.id}
-            categoria={contato.categoria}
-            email={contato.email}
-            nome={contato.nome}
-            telefone={contato.telefone}
-            id={contato.id}
-            favorito={contato.favorito}
-          />
-        ))}
+        {contatosFiltrados.length ==0 ? (<>
+          <h3>🐱‍💻 Xiii, nenhum contato, vai ter que adicionar!</h3>
+        </>): (
+          contatosFiltrados.map((contato) => (
+            <Contato
+              key={contato.id}
+              categoria={contato.categoria}
+              email={contato.email}
+              nome={contato.nome}
+              telefone={contato.telefone}
+              id={contato.id}
+              favorito={contato.favorito}
+            />
+          ))
+        )}
       </S.Container>
     </S.MainContainer>
   );

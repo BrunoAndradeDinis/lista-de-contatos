@@ -19,9 +19,15 @@ export const Input = styled(InputChore)`
         background: ${variaveis.fundoPrincipal};
         padding: 0 4px;
     }
+
+    &:not(:focus):not(:not(:placeholder-shown)) + label {
+        top: 1rem;
+        font-size: 14px;
+        background: transparent;
+    }
 `
 
-export const MainContainer = styled(Main)`
+export const FormContainer = styled(Main).attrs({as:'form'})`
     margin: 1rem;
     h2{
         margin-bottom: .5rem;
@@ -44,7 +50,7 @@ export const MainContainer = styled(Main)`
         div{
             display:flex;
             flex-direction:column;
-            width:250px;
+            min-width:320px;
             padding-top: 4px;
 
             input{
@@ -61,6 +67,14 @@ export const MainContainer = styled(Main)`
                 transition: 0.3s;
             }
         }
+    }
+`
+
+export const Error = styled.span`
+    color: ${variaveis.corErro};
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
 `
 
 export const CategoriaFieldset = styled.fieldset`
@@ -105,8 +119,8 @@ export const BotaoSalvar = styled(Botao)`
 
     &:hover{
         box-shadow: 3px 3px 1px ${variaveis.sombraPadrao}; 
+        border: none;
         opacity: 1;
         border: none;
     }
 `
-

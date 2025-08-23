@@ -13,5 +13,6 @@ export default {
   overlayBrancoForte: 'rgba(255, 255, 255, 0.6)',
   overlayBrancoFraco: 'rgba(255, 255, 255, 0.23)',
   badgeVerdeTransparente: 'rgba(108, 247, 217, 0.23)',
-  sombraPadrao: 'rgba(0, 0, 0, 0.25)'
+  sombraPadrao: 'rgba(0, 0, 0, 0.25)',
+  corErro: '#e74c3c'
 }

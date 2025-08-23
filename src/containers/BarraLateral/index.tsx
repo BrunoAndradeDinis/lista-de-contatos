@@ -72,7 +72,7 @@ const BarraLateral = ({mostrarFiltros}: Props) => {
           icon="icons/estrela-fill.png"
           onClick={() => handleFiltro("favoritos")}
         />
-      </>):(<><S.BotaoVoltar to="/">{`↚  voltar para home`}</S.BotaoVoltar></>)}
+      </>):(<><S.BotaoVoltar to="/">{`← voltar para home`}</S.BotaoVoltar></>)}
       </S.Aside>
     </>
   );
