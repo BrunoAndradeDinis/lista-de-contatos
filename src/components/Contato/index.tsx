@@ -60,6 +60,7 @@ const Contato = ({ email: emailOriginal, nome: nomeOriginal, telefone: telefoneO
     telefoneChange(telefoneOriginal.toString())
   }
 
+
   const salvar = () => {
 
     if (!validarTelefone(telefone)) {
